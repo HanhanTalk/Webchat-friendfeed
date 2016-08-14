@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">
+    <title>webchat</title>
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    
+  </head>
+  <body>
+    <!--[if lt IE 10]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div class="overplay hidden"></div>
+    <div id="webchat" v-on:click="appClick">
+    <div class="user-bg">
+    </div>
+    <div class="inset hidden">
+      <span class="icon-input"></span>
+      <input type="text" placeholder="评论">
+      <button class="input-button" v-on:click="inputClick($event)">确认</button>
+    </div>
+      <div class="replybox hidden">
+        <span class="icon-input"></span>
+        <input type="text" placeholder="回复 {{replyUser}}">
+        <button class="input-button" v-on:click="replyClick($event)">回复</button>
+      </div>
+    <div class="container">
+        <div class="user-self">
+          <div class="username left">
+            <h1>{{userinfo.username}}</h1>
+          </div>
+          <div class="user-icon">
+            <img v-bind:src="userinfo.url" alt="">
+          </div>
+        </div>
+        <div class="user-item">
+          <div class="border" v-for="item in AllFeeds" track-by="$index">
+            <div class="user-pic">
+              <img v-bind:src="item.url" alt="">
+            </div>
+            <div class="user-content">
+              <h2 class="spacing">{{item.name}}</h2>
+              <p class="spacing">{{item.content}}</p>
+              <img class="spacing" v-bind:src="item.picUrl" alt="">
+              <span class="spacing time">{{item.time}}</span>
+              <div class="commit" v-show="item.showComt">
+                <a v-on:click="likeClick($event,item)" class="btn btn-left" href="javascript:;">
+                  <span class="icon-heart-empty"></span>{{item.like}}
+                </a>
+                <a v-on:click="comtClick($event,item)" href="javascript:;" class="btn btn-comment">
+                  <span class="icon-comment-alt"></span>评论
+                </a>
+              </div>
+              <button class="btn-default" v-on:click="showCommentClick($event,item)">
+              </button>
+            </div>
+            <div class="repcomment">
+              <div class="comments" v-show="item.userLike && item.userLike.length > 0 || item.comment && item.comment.length > 0">
+                <div class="top">
+                   <span class="triangle">
+                   </span>
+                  <div class="like" v-show="item.userLike && item.userLike.length > 0">
+                    <p>
+                      <span class="icon-heart-empty i-like"></span>
+                      <span class="user" v-for="onelike in item.userLike" track-by="$index">{{onelike}}<span class="dh-black">,</span></span>
+                    </p>
+                  </div>
+                  <div class="comment" v-show="item.comment && item.comment.length >0">
+                      <div class="com-space" v-for="onecommet in item.comment" track-by="$index">
+                        <div v-if="!(onecommet.reply)">
+                          <a href="javascript:;" v-on:click="replyComt($event,item,onecommet)" class="reply">
+                            <span class="user">{{onecommet.name}}:</span>
+                            {{onecommet.content}}
+                          </a>
+                        </div>
+                        <div v-else>
+                          <a href="javascript:;" v-on:click="replyComt($event,item,onecommet)" class="reply">
+                            <span class="user">{{userinfo.username}}</span>回复 <span class="user">{{replyUser}}:
+                            <a href="javascript:;" class="reply">{{onecommet.content}}</a>
+                          </span>
+                          </a>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+
+
+
+    <!-- build:js scripts/vendor.js -->
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/vue.js"></script>
+    <!-- endbuild -->
+    
+    <!-- build:js scripts/main.js -->
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+  </body>
+</html>
