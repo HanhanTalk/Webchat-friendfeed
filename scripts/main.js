@@ -1,13 +1,11 @@
 $(function(){
   var showComt = '';
   $(".overplay").click(function(){
-    event.stopPropagation();
     $(".inset").addClass("hidden");
     $(".replybox").addClass("hidden");
     $(".overplay").addClass("hidden");
   })
   $(".inset input").click(function(){
-    event.stopPropagation();
   })
   $.getJSON("mock/data.json",function(response){
 
@@ -35,12 +33,10 @@ $(function(){
       },
       methods: {
         showCommentClick: function (event, feed) {
-          event.stopPropagation();
           this.clickFeed = feed;
           feed.showComt = !feed.showComt;
         },
         likeClick: function (event, feed) {
-          event.stopPropagation();
           if (feed.like === "赞") {
             if (gUserInfo) {
               feed.userLike.push(gUserInfo.username);
@@ -55,7 +51,6 @@ $(function(){
         },
         comtClick: function (event,feed) {
           this.clickFeed = feed;
-          event.stopPropagation();
           feed.showComt = false;
           $(".inset").removeClass("hidden");
           $(".inset input").focus();
@@ -63,7 +58,6 @@ $(function(){
 
         },
         inputClick: function (event) {
-          event.stopPropagation();
           var comText = $(".inset input").val();
           this.clickFeed.comment.push({"name": gUserInfo.username, "content": comText});
           $(".inset").addClass("hidden");
@@ -71,7 +65,6 @@ $(function(){
           $('.inset input').val('');
         },
         replyComt:function (event,feed,onecommet) {
-          event.stopPropagation();
           this.clickFeed = feed;
           this.replyUser = onecommet.name;
           $(".replybox").removeClass("hidden");
@@ -79,7 +72,6 @@ $(function(){
           $(".overplay").removeClass("hidden").css("opacity","0.6");
         },
         replyClick:function(event){
-          event.stopPropagation();
           var replyText = $(".replybox input").val();
           this.clickFeed.comment.push({
             "name":gUserInfo.username,

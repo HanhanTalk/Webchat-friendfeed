@@ -25,18 +25,18 @@
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <div class="overplay hidden"></div>
-    <div id="webchat" v-on:click="appClick">
+    <div id="webchat" v-on:click.stop="appClick">
     <div class="user-bg">
     </div>
     <div class="inset hidden">
       <span class="icon-input"></span>
       <input type="text" placeholder="评论">
-      <button class="input-button" v-on:click="inputClick($event)">确认</button>
+      <button class="input-button" v-on:click.stop="inputClick($event)">确认</button>
     </div>
       <div class="replybox hidden">
         <span class="icon-input"></span>
         <input type="text" placeholder="回复 {{replyUser}}">
-        <button class="input-button" v-on:click="replyClick($event)">回复</button>
+        <button class="input-button" v-on:click.stop="replyClick($event)">回复</button>
       </div>
     <div class="container">
         <div class="user-self">
@@ -58,14 +58,14 @@
               <img class="spacing" v-bind:src="item.picUrl" alt="">
               <span class="spacing time">{{item.time}}</span>
               <div class="commit" v-show="item.showComt">
-                <a v-on:click="likeClick($event,item)" class="btn btn-left" href="javascript:;">
+                <a v-on:click.stop="likeClick($event,item)" class="btn btn-left" href="javascript:;">
                   <span class="icon-heart-empty"></span>{{item.like}}
                 </a>
-                <a v-on:click="comtClick($event,item)" href="javascript:;" class="btn btn-comment">
+                <a v-on:click.stop="comtClick($event,item)" href="javascript:;" class="btn btn-comment">
                   <span class="icon-comment-alt"></span>评论
                 </a>
               </div>
-              <button class="btn-default" v-on:click="showCommentClick($event,item)">
+              <button class="btn-default" v-on:click.stop="showCommentClick($event,item)">
               </button>
             </div>
             <div class="repcomment">
@@ -82,13 +82,13 @@
                   <div class="comment" v-show="item.comment && item.comment.length >0">
                       <div class="com-space" v-for="onecommet in item.comment" track-by="$index">
                         <div v-if="!(onecommet.reply)">
-                          <a href="javascript:;" v-on:click="replyComt($event,item,onecommet)" class="reply">
+                          <a href="javascript:;" v-on:click.stop="replyComt($event,item,onecommet)" class="reply">
                             <span class="user">{{onecommet.name}}:</span>
                             {{onecommet.content}}
                           </a>
                         </div>
                         <div v-else>
-                          <a href="javascript:;" v-on:click="replyComt($event,item,onecommet)" class="reply">
+                          <a href="javascript:;" v-on:click.stop="replyComt($event,item,onecommet)" class="reply">
                             <span class="user">{{userinfo.username}}</span>回复 <span class="user">{{replyUser}}:
                             <a href="javascript:;" class="reply">{{onecommet.content}}</a>
                           </span>
