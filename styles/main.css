@@ -1,5 +1,7 @@
 body{
   position: relative;
+  width:640px;
+  
 }
 .overplay{
   width: 100%;
